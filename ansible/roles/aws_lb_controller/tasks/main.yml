@@ -1,6 +1,6 @@
 ---
 - name: Install Helm (if not already present)
-  ansible.builtin.command: curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 && chmod +x get_helm.sh && ./get_helm.sh
+  ansible.builtin.command: "curl -fsSL https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash"
   changed_when: false
 - name: Add EKS Helm repo
   ansible.builtin.command: helm repo add eks https://aws.github.io/eks-charts
