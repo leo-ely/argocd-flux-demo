@@ -1,0 +1,5 @@
+---
+CLUSTER_NAME: "eks-actions-demo"
+GITHUB_REPOSITORY: "{{ lookup('env', 'GITHUB_REPOSITORY') }}"
+GITHUB_REPOSITORY_OWNER: "{{ lookup('env', 'GITHUB_REPOSITORY_OWNER') }}"
+REPOSITORY_NAME: "{{ lookup('env', 'REPOSITORY_NAME') }}"
