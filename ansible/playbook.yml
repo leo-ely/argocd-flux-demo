@@ -1,0 +1,8 @@
+---
+- name: Configure EKS Cluster
+  connection: local
+  hosts: localhost
+  roles:
+    - argocd
+    - flux
+    - aws_lb_controller

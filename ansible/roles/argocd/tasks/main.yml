@@ -1,0 +1,14 @@
+---
+- name: Install Helm
+  ansible.builtin.command: curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 && chmod +x get_helm.sh && ./get_helm.sh
+  changed_when: false
+- name: Add ArgoCD Helm repo
+  ansible.builtin.command: helm repo add argo https://argoproj.github.io/argo-helm
+  changed_when: false
+- name: Install ArgoCD
+  ansible.builtin.helm:
+    name: argocd
+    chart_ref: argo/argo-cd
+    create_namespace: true
+    release_namespace: argocd
+    state: present

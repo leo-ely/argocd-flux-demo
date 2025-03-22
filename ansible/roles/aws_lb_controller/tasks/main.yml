@@ -1,0 +1,19 @@
+---
+- name: Install Helm (if not already present)
+  ansible.builtin.command: curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 && chmod +x get_helm.sh && ./get_helm.sh
+  changed_when: false
+- name: Add EKS Helm repo
+  ansible.builtin.command: helm repo add eks https://aws.github.io/eks-charts
+  changed_when: false
+- name: Update Helm repos
+  ansible.builtin.command: helm repo update
+  changed_when: false
+- name: Install AWS Load Balancer Controller
+  ansible.builtin.helm:
+    name: aws-load-balancer-controller
+    chart_ref: eks/aws-load-balancer-controller
+    namespace: kube-system
+    state: present
+    set:
+      - name: clusterName
+        value: "{{ CLUSTER_NAME }}"

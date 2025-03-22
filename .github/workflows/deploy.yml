@@ -1,0 +1,30 @@
+name: "EKS Cluster Deployment"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: "Deploy"
+    runs-on: ubuntu-latest
+    environment: production
+    concurrency: production
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set REPOSITORY_NAME environment variable
+        run: echo "REPOSITORY_NAME=${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}" >> $GITHUB_ENV
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Ansible Setup
+        run: sudo apt update && sudo apt install -y ansible
+      - name: Apply Ansible Playbook
+        run: ansible-playbook -i localhost ./ansible/playbook.yml
+
+      - name: Trigger Flux Sync
+        run: flux reconcile source git flux-system
