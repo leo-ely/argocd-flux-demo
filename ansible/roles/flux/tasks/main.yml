@@ -1,6 +1,6 @@
 ---
 - name: Install Flux CLI
-  ansible.builtin.command: curl -s https://fluxcd.io/install.sh | bash
+  ansible.builtin.shell: "curl -s https://fluxcd.io/install.sh | bash"
   changed_when: false
 - name: Bootstrap Flux
   ansible.builtin.command:
