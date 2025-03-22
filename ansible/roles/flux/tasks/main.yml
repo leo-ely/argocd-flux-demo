@@ -1,9 +1,6 @@
 ---
 - name: Install Flux CLI
-  ansible.builtin.command: curl -s https://fluxcd.io/install.sh | bash
+  ansible.builtin.shell: "curl -s https://fluxcd.io/install.sh | bash"
   changed_when: false
 - name: Bootstrap Flux
-  ansible.builtin.command:
-    cmd: flux bootstrap github --owner={{ GITHUB_REPOSITORY_OWNER }} --repository={{ REPOSITORY_NAME }} --branch=main --path=./clusters/eks-cluster --personal
-  environment:
-    GITHUB_TOKEN: "{{ lookup('env', 'GITHUB_TOKEN') }}"
+  ansible.builtin.shell: "flux bootstrap github --owner={{ REPOSITORY_OWNER }} --repository={{ REPOSITORY_NAME }} --branch=main --path=./clusters/eks-cluster --personal"

@@ -12,14 +12,25 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Set REPOSITORY_NAME environment variable
-        run: echo "REPOSITORY_NAME=${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}" >> $GITHUB_ENV
+      - name: Set environment variables
+        run: |
+          echo "GITHUB_TOKEN=${{ secrets.REPOSITORY_TOKEN }}" >> $GITHUB_ENV
+          echo "REPOSITORY_NAME=${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}" >> $GITHUB_ENV
+          echo "REPOSITORY_OWNER=${{ github.repository_owner }}" >> $GITHUB_ENV
+          echo "REPOSITORY_URI=${GITHUB_REPOSITORY}" >> $GITHUB_ENV
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ vars.AWS_REGION }}
+      - name: Update kubeconfig
+        run: |
+          aws eks update-kubeconfig --name ${{ vars.AWS_EKS_CLUSTER_NAME }} --region ${{ vars.AWS_REGION }}
+          kubectl config set-context --current --namespace=default
+      - name: Verify EKS Access
+        run: |
+          kubectl get nodes || { echo "Error: failed to connect to EKS Cluster"; exit 1; }
 
       - name: Ansible Setup
         run: sudo apt update && sudo apt install -y ansible

@@ -6,3 +6,5 @@
     - argocd
     - flux
     - aws_lb_controller
+  vars_files:
+    - vars.yml
