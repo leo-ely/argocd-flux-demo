@@ -2,5 +2,4 @@
 CLUSTER_NAME: "eks-actions-demo"
 REPOSITORY_NAME: "{{ lookup('env', 'REPOSITORY_NAME') }}"
 REPOSITORY_OWNER: "{{ lookup('env', 'REPOSITORY_OWNER') }}"
-REPOSITORY_TOKEN: "{{ lookup('env', 'REPOSITORY_TOKEN') }}"
 REPOSITORY_URI: "{{ lookup('env', 'REPOSITORY_URI') }}"

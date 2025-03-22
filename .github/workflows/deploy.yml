@@ -16,7 +16,6 @@ jobs:
         run: |
           echo "REPOSITORY_NAME=${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}" >> $GITHUB_ENV
           echo "REPOSITORY_OWNER=${{ github.repository_owner }}" >> $GITHUB_ENV
-          echo "REPOSITORY_TOKEN=${{ secrets.REPOSITORY_TOKEN }}" >> $GITHUB_ENV
           echo "REPOSITORY_URI=${GITHUB_REPOSITORY}" >> $GITHUB_ENV
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -37,7 +36,7 @@ jobs:
       - name: Kubernetes Collection Setup
         run: ansible-galaxy collection install kubernetes.core
       - name: Apply Ansible Playbook
-        run: ansible-playbook -i localhost ./ansible/playbook.yml
+        run: ansible-playbook -i localhost ./ansible/playbook.yml --extra-vars "REPOSITORY_TOKEN=${{ secrets.REPOSITORY_TOKEN }}"
 
       - name: Trigger Flux Sync
         run: flux reconcile source git flux-system
