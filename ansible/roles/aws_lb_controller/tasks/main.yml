@@ -15,8 +15,5 @@
     name: aws-load-balancer-controller
     release_namespace: kube-system
     update_repo_cache: true
-    set_values:
-      - key: "gitRepository.spec.url"
-        value: "https://github.com/{{ REPOSITORY_URI }}.git"
-      - key: "gitRepository.spec.ref.branch"
-        value: "main"
+    values:
+      clusterName: "{{ cluster_name }}"
