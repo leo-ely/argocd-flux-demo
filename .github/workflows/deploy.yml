@@ -17,6 +17,7 @@ jobs:
           echo "REPOSITORY_NAME=${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}" >> $GITHUB_ENV
           echo "REPOSITORY_OWNER=${{ github.repository_owner }}" >> $GITHUB_ENV
           echo "REPOSITORY_URI=${GITHUB_REPOSITORY}" >> $GITHUB_ENV
+          echo "TOKEN=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_ENV
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
