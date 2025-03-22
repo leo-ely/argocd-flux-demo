@@ -14,6 +14,8 @@
     chart_ref: eks/aws-load-balancer-controller
     namespace: kube-system
     state: present
-    set:
-      - name: clusterName
-        value: "{{ CLUSTER_NAME }}"
+    set_values:
+      - key: 'gitRepository.spec.url'
+        value: 'https://github.com/{{ REPOSITORY_URI }}.git'
+      - key: 'gitRepository.spec.ref.branch'
+        value: 'main'
