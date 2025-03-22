@@ -24,6 +24,9 @@ jobs:
         run: |
           aws eks update-kubeconfig --name ${{ vars.AWS_EKS_CLUSTER_NAME }} --region ${{ vars.AWS_REGION }}
           kubectl config set-context --current --namespace=default
+      - name: Verify EKS Access
+        run: |
+          kubectl get nodes || { echo "Error: failed to connect to EKS Cluster"; exit 1; }
 
       - name: Ansible Setup
         run: sudo apt update && sudo apt install -y ansible
