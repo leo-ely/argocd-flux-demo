@@ -3,4 +3,4 @@
   ansible.builtin.shell: "curl -s https://fluxcd.io/install.sh | bash"
   changed_when: false
 - name: Bootstrap Flux
-  ansible.builtin.shell: "flux bootstrap github --owner={{ REPOSITORY_OWNER }} --repository={{ REPOSITORY_NAME }} --branch=main --path=./clusters/eks-cluster --personal --token={{ REPOSITORY_TOKEN }}"
+  ansible.builtin.shell: "flux bootstrap github --owner={{ REPOSITORY_OWNER }} --repository={{ REPOSITORY_NAME }} --branch=main --path=./clusters/eks-cluster --personal"
