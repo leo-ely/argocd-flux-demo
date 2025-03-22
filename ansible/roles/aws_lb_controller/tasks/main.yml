@@ -16,4 +16,4 @@
     release_namespace: kube-system
     update_repo_cache: true
     values:
-      clusterName: "{{ cluster_name }}"
+      clusterName: "{{ CLUSTER_NAME }}"
