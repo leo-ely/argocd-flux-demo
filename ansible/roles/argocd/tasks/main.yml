@@ -6,7 +6,7 @@
   ansible.builtin.command: helm repo add argo https://argoproj.github.io/argo-helm
   changed_when: false
 - name: Install ArgoCD
-  ansible.builtin.helm:
+  kubernetes.core.helm:
     name: argocd
     chart_ref: argo/argo-cd
     create_namespace: true

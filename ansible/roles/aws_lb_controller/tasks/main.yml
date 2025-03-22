@@ -9,7 +9,7 @@
   ansible.builtin.command: helm repo update
   changed_when: false
 - name: Install AWS Load Balancer Controller
-  ansible.builtin.helm:
+  kubernetes.core.helm:
     name: aws-load-balancer-controller
     chart_ref: eks/aws-load-balancer-controller
     namespace: kube-system
