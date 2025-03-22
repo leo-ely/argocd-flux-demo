@@ -4,6 +4,6 @@
   changed_when: false
 - name: Bootstrap Flux
   ansible.builtin.command:
-    cmd: flux bootstrap github --owner={{ GITHUB_REPOSITORY_OWNER }} --repository={{ REPOSITORY_NAME }} --branch=main --path=./clusters/eks-cluster --personal
+    cmd: flux bootstrap github --owner={{ REPOSITORY_OWNER }} --repository={{ REPOSITORY_NAME }} --branch=main --path=./clusters/eks-cluster --personal
   environment:
     GITHUB_TOKEN: "{{ lookup('env', 'GITHUB_TOKEN') }}"

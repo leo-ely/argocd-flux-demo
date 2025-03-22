@@ -12,8 +12,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Set REPOSITORY_NAME environment variable
-        run: echo "REPOSITORY_NAME=${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}" >> $GITHUB_ENV
+      - name: Set environment variables
+        run: |
+          echo "REPOSITORY_NAME=${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}" >> $GITHUB_ENV
+          echo "REPOSITORY_OWNER=${GITHUB_REPOSITORY#/$REPOSITORY_NAME}" >> $GITHUB_ENV
+          echo "REPOSITORY_URI=${GITHUB_REPOSITORY}" >> $GITHUB_ENV
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
