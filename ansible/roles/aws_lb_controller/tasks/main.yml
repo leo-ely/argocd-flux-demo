@@ -3,11 +3,13 @@
   ansible.builtin.shell: "curl -fsSL https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash"
   changed_when: false
 - name: Add EKS Helm repo
-  ansible.builtin.shell: helm repo add eks https://aws.github.io/eks-charts
-  changed_when: false
+  kubernetes.core.helm_repository:
+    name: eks
+    repo_url: https://aws.github.io/eks-charts
 - name: Update Helm repos
-  ansible.builtin.shell: helm repo update
-  changed_when: false
+  kubernetes.core.helm:
+    name: eks
+    update_repo_cache: true
 - name: Install AWS Load Balancer Controller
   kubernetes.core.helm:
     chart_ref: eks/aws-load-balancer-controller
