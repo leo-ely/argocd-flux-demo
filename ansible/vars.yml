@@ -1,6 +1,5 @@
 ---
 CLUSTER_NAME: "eks-actions-demo"
-CLUSTER_REGION: "{{ lookup('env', 'CLUSTER_REGION') }}"
 GITHUB_TOKEN: "{{ lookup('env', 'GITHUB_TOKEN') }}"
 REPOSITORY_NAME: "{{ lookup('env', 'REPOSITORY_NAME') }}"
 REPOSITORY_OWNER: "{{ lookup('env', 'REPOSITORY_OWNER') }}"
