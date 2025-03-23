@@ -6,10 +6,6 @@
   kubernetes.core.helm_repository:
     name: eks
     repo_url: https://aws.github.io/eks-charts
-- name: Update Helm repos
-  kubernetes.core.helm:
-    name: eks
-    update_repo_cache: true
 - name: Install AWS Load Balancer Controller
   kubernetes.core.helm:
     chart_ref: eks/aws-load-balancer-controller
